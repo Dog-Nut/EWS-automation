@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('https://10.44.13.98/index.html');
+  await page.goto('/index.html');
   await expect(page.locator('#logo')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'HP DesignJet Smart Tank T908' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Notifications' })).toBeVisible();

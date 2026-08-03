@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('https://10.44.13.98/index.html');
+  await page.goto('/index.html');
   await page.getByRole('menuitem', { name: 'Jobs' }).click();
   await page.locator('#menu-jobs-jobQueue').getByRole('navigation', { name: 'Job Queue' }).click();
   await page.getByRole('textbox', { name: 'Enter PIN' }).fill('12345678');
