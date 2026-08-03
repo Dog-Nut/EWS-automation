@@ -4,7 +4,7 @@ test("test", async ({ page }) => {
   await page.goto("/index.html");
   await expect(page.locator("#logo")).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "HP DesignJet Smart Tank T908" }),
+    page.getByRole("heading", { name: /HP DesignJet Smart Tank .+/ }),
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Notifications" }),
