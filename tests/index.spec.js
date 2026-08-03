@@ -1,9 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-test.use({
-  ignoreHTTPSErrors: true
-});
-
 test('test', async ({ page }) => {
   await page.goto('https://10.44.13.98/index.html');
   await expect(page.locator('#logo')).toBeVisible();
