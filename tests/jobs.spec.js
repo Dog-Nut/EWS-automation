@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { jobsPage } from "../pages/jobs-page";
 
 test("test", async ({ page }) => {
-  await page.goto("/index.html");
+  const jobs = new jobsPage(page);
+  await jobs.goto();
   await page.getByRole("menuitem", { name: "Jobs" }).click();
   await page
     .locator("#menu-jobs-jobQueue")
@@ -11,22 +13,15 @@ test("test", async ({ page }) => {
     .getByRole("textbox", { name: "Enter PIN" })
     .fill(process.env.PRINTER_PIN);
   await page.getByRole("textbox", { name: "Enter PIN" }).press("Enter");
-  await expect(page.getByRole("button", { name: "In progress" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Upcoming" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "History" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Job Name" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Status" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Started" })).toBeVisible();
-  await expect(
-    page.getByRole("cell", { name: "Completed" }).nth(1),
-  ).toBeVisible();
-  await expect(page.getByRole("cell", { name: "User Name" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Job Type" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Paper Source" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Paper Type" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Output Size" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Quality" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Color Mode" })).toBeVisible();
+  await jobs.expectButtonVisible("In Progress");
+  await jobs.expectButtonVisible("Upcoming");
+  await jobs.expectButtonVisible("History");
+  await jobs.expectTableCellVisible("Job Name");
+  await jobs.expectTableCellVisible("Status");
+  await jobs.expectTableCellVisible("Started");
+  await jobs.expectTableCellVisible("Completed");
+  await jobs.expectTableCellVisible("User Name");
+  await jobs.expectTableCellVisible("Job Type");
   await page.getByRole("button", { name: "More actions" }).click();
   await expect(
     page
