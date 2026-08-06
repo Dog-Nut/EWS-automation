@@ -1,18 +1,17 @@
 import { test, expect } from "@playwright/test";
-import { jobsPage } from "../pages/jobs-page";
+import { JobsPage } from "../pages/jobs-page";
+import { SignInProcess } from "../pages/signIn-process";
 
 test("test", async ({ page }) => {
-  const jobs = new jobsPage(page);
-  await jobs.goto();
+  const jobs = new JobsPage(page);
+  const signInProcess = new SignInProcess(page);
+  await signInProcess.goto();
   await page.getByRole("menuitem", { name: "Jobs" }).click();
   await page
     .locator("#menu-jobs-jobQueue")
     .getByRole("navigation", { name: "Job Queue" })
     .click();
-  await page
-    .getByRole("textbox", { name: "Enter PIN" })
-    .fill(process.env.PRINTER_PIN);
-  await page.getByRole("textbox", { name: "Enter PIN" }).press("Enter");
+  await signInProcess.enterPIN();
   await jobs.expectButtonVisible("In Progress");
   await jobs.expectButtonVisible("Upcoming");
   await jobs.expectButtonVisible("History");
