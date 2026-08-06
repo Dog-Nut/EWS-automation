@@ -1,14 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-export class jobsPage {
+export class JobsPage {
   constructor(page) {
-    this.page = page;
     this.buttons = page.getByRole("button");
     this.tableCells = page.getByRole("cell");
-  }
-
-  async goto() {
-    await this.page.goto("/index.html");
   }
 
   async expectButtonVisible(text) {
