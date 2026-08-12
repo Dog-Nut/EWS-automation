@@ -6,10 +6,8 @@ test.use({
   ignoreHTTPSErrors: true,
 });
 
-test.beforeEach(async ({ page }) => {
-  const signInProcess = new SignInProcess(page);
+test.beforeEach(async ({ signInProcess, page }) => {
   const copySettings = new CopySettingsPage(page);
-  await signInProcess.goto();
   await copySettings.goToCopySettings();
   await signInProcess.enterPIN();
 });
